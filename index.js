@@ -9,18 +9,10 @@ app.post('/webhook', async (req, res) => {
   // Raw notification data is available in req.body
   const notificationData = req.body;
 
-  // Access the nested values
-  const customerId = req.body.Body.Key.Details.customerid;
-  const action = req.body.Body.Key.Details.action;
-
-  // Log the values
-  console.log('Received Webhook - Customer ID:', customerId);
-  console.log('Received Webhook - Action:', action);
-
   // Forward the data to your Pipedream request bin
   try {
     const response = await axios.post('https://eomrm4f2rn42efc.m.pipedream.net', {
-      notificationData: notificationData,
+      notificationData,
     });
 
     console.log('Forwarded data to Pipedream:', response.data);
